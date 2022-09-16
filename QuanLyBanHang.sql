@@ -1,0 +1,30 @@
+CREATE SCHEMA `QuanLyBanHang`;
+USE `QuanLyBanHang`;
+CREATE TABLE Customer (
+    cID INT AUTO_INCREMENT PRIMARY KEY,
+    cName VARCHAR(30) NOT NULL,
+    cAge INT NOT NULL
+);
+CREATE TABLE `Order` (
+    oID INT AUTO_INCREMENT PRIMARY KEY,
+    cID INT NOT NULL,
+    FOREIGN KEY (cID)
+        REFERENCES Customer (cID),
+    oDate DATETIME NOT NULL,
+    oTotalPrice DOUBLE NOT NULL
+);
+CREATE TABLE Product (
+    pID INT AUTO_INCREMENT PRIMARY KEY,
+    pName VARCHAR(50) NOT NULL,
+    pPrice DOUBLE NOT NULL
+);
+CREATE TABLE OrderDetail (
+    oID INT NOT NULL,
+    pID INT NOT NULL,
+    FOREIGN KEY (oID)
+        REFERENCES `Order` (oID),
+    FOREIGN KEY (pID)
+        REFERENCES Product (pID),
+    PRIMARY KEY (oID , pID),
+    odQTY INT NOT NULL
+);
