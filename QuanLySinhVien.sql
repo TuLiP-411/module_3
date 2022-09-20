@@ -96,3 +96,39 @@ FROM
     subject Sub ON  M.SubID = Sub.SubID
 WHERE
     Sub.SubName = 'CF';
+    
+SELECT 
+    *
+FROM
+    student
+WHERE
+    studentname LIKE 'h%';
+    
+SELECT 
+    *
+FROM
+    class
+WHERE
+    MONTH(startdate) = 12;
+    
+SELECT 
+    *
+FROM
+    subject
+WHERE
+    credit BETWEEN 3 AND 5;
+UPDATE student 
+SET 
+    ClassID = 2
+WHERE
+    studentid = 1;
+    
+SELECT 
+    S.StudentName, Sub.SubName, M.Mark
+FROM
+    Mark M
+        JOIN
+    Student S ON S.StudentID = M.StudentID
+        JOIN
+    Subject Sub ON M.SubID = Sub.SubID
+ORDER BY M.Mark DESC, S.StudentName;
