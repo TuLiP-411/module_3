@@ -70,39 +70,36 @@ JOIN Product P
 ON P.pID = OD.pID;
 
 DELIMITER //
- DROP PROCEDURE IF EXISTS sp_CheckProduct;
-create procedure sp_CheckProduct(IN value1 VARCHAR(50), OUT value2 VARCHAR(50))
+DROP PROCEDURE IF EXISTS sp_CheckProduct;
+CREATE PROCEDURE sp_CheckProduct(INOUT value1 VARCHAR(50))
 
-   begin
-
-   set value2=(select pName from Product where pName=value1);
-
-   end;
+   BEGIN
+   SET value1=(SELECT pName FROM Product WHERE pName=value1);
+   END;
    //DELIMITER ;
    
-call sp_CheckProduct('Tu Lanh',@isPresent);
-select @isPresent;
+-- SET @checkingproduct = 'Tu Lanh';
+-- SELECT @checkingproduct;
+CALL sp_CheckProduct(@checkingproduct);
+SELECT @checkingproduct;
 
-call sp_CheckProduct('Bong Den',@isPresent);
-select @isPresent;
+CALL sp_CheckProduct('Bong Den',@isPresent);
+SELECT @isPresent;
 
+   DELIMITER //
+   DROP PROCEDURE IF EXISTS sp_CountOrderByCustomerName;
+CREATE PROCEDURE sp_CountOrderByCustomerName (IN value1 VARCHAR(20), OUT value2 INT)
 
-
-DELIMITER //
- DROP PROCEDURE IF EXISTS sp_CheckProductINOUT;
-create procedure sp_CheckProductINOUT (INOUT value1 VARCHAR(50))
-
-   begin
-
-   set value1=(select pName from Product where pName=value1);
-
-   end;
+   BEGIN
+SELECT COUNT(oID)
+INTO value2
+    FROM `order` JOIN customer ON `order`.cID= customer.cID
+    WHERE customer.cName = value1;
+   END;
    //DELIMITER ;
    
-SET @checkresult = 'Tu Lanh';
-CALL sp_CheckProductINOUT(@checkresult);
-SELECT @checkresult;
+SET @NumberOfOrder =100;
+SELECT @NumberOfOrder;
+CALL sp_CountOrderByCustomerName('Minh Quan',@NumberOfOrder);
+SELECT @NumberOfOrder;
 
-SET @checkresult = 'Bong Den';
-CALL sp_CheckProductINOUT(@checkresult);
-SELECT @checkresult;
