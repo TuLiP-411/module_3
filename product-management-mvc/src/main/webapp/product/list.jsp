@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 14/5/2020
-  Time: 11:38 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -17,12 +10,29 @@
             font-size: 20px;
             background-color: beige;
         }
+
         th {
             background-color: ivory;
         }
+
         p {
             font-size: 20px;
             font-family: Arial;
+        }
+
+        .message {
+            text-align: center;
+            font-family: Arial;
+            font-size: 18px;
+            padding-left: 40px;
+            background: none;
+        }
+
+        .upper {
+            text-align: center;
+            background: none;
+            font-family: Arial;
+            font-size: 30px;
         }
     </style>
 </head>
@@ -30,13 +40,25 @@
 <p>
     <a href="products?action=create">Create new Product</a>
 </p>
-<p style="font-size: 20px">Search Product: </p>
-<form method="post">
-    <input type="text" name="searchByName" id="searchByName" placeholder="Enter product name">
-    <input type="submit" value="Search">
-</form>
+<table>
+    <tr>
+        <td class="upper"><p style="font-size: 20px">Search Product: </p>
+            <form method="post">
+                <input type="text" name="searchByName" id="searchByName" placeholder="Enter product name">
+                <input type="submit" value="Search">
+            </form>
+        </td>
+        <td class="message">
+            <c:if test="${requestScope['message']!=null}">
+                <span style="color: blue"> <a href="products">${requestScope['message']}</a></span>
+            </c:if></td>
+    </tr>
+</table>
+
 <table style="color: blue" border="2px">
-    <tr><th colspan="8"><h1>Products Management</h1></th></tr>
+    <tr>
+        <th colspan="8"><h1>Products Management</h1></th>
+    </tr>
     <tr>
         <td width="140px" height="60px">ID Product</td>
         <td width="140px" height="60px">Name Product</td>

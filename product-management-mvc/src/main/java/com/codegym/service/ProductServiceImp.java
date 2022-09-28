@@ -30,15 +30,18 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public Product findByName(String name) {
+    public List<Product> findByName(String name) {
         List<Product> products = findAll();
-        for (Product product : products) {
-            if (name.equals(product.getName())) {
-                return product;
+        List<Product> result = new ArrayList<>();
+        for (Product product : products
+        ) {
+            if (product.getName().toLowerCase().contains(name.toLowerCase().trim())) {
+                result.add(product);
             }
         }
-        return null;
+        return result;
     }
+
 
     @Override
     public void save(Product product) {
